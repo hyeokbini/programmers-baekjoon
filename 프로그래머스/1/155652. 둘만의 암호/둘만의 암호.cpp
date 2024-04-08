@@ -14,7 +14,7 @@ string solution(string s, string skip, int index) {
             s[i]++;
             if (s[i] > 'z')
             {
-                s[i] = 'a' + (s[i] - 'z' - 1);
+                s[i] -= 26;
             }
             if(skip.find(s[i]) == string::npos)
             {
@@ -27,7 +27,7 @@ string solution(string s, string skip, int index) {
                     s[i]++;
                     if (s[i] > 'z')
                     {
-                        s[i] = 'a' + (s[i] - 'z' - 1);
+                        s[i] -= 26;
                     }
                     if(skip.find(s[i]) == string::npos)
                     {
