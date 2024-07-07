@@ -7,15 +7,22 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(0);
     //freopen("test.txt", "rt", stdin);
-    int n, tmp;
+    int n,tmp;
+    int min = INT_MAX;
+    int max = INT_MIN;
     cin >> n;
-    vector<int> arr;
     for(int i = 0; i < n; i++)
     {
         cin >> tmp;
-        arr.push_back(tmp);
+        if(tmp < min)
+        {
+            min = tmp;
+        }
+        if(tmp > max)
+        {
+            max = tmp;
+        }
     }
-    sort(arr.begin(),arr.end());
-    cout << arr[0] << " " << arr.back();
+    cout << min << " " << max;
     return 0;
 }
