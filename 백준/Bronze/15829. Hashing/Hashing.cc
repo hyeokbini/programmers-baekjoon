@@ -12,14 +12,14 @@ int main()
     for(int i = 0; i < n; i++)
     {
         int val = str[i] - 96;
-        int tmp = 1;
+        long long tmp = 1;
         for(int j = 0; j < i; j++)
         {
             tmp *= 31;
             tmp %= 1234567891;
         }
-        ans += val * tmp;
+        ans += (val * tmp) % 1234567891;
     }
-    cout << ans;
+    cout << ans % 1234567891;
     return 0;
 }
