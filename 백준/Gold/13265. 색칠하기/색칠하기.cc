@@ -9,30 +9,30 @@ bool success = true;
 
 void dfs(int curcircle, int curcolor) // 1과 2로 색칠
 {
-    if(circlecolor[curcircle] == 0)
+    if (circlecolor[curcircle] == 0)
     {
         circlecolor[curcircle] = curcolor;
     }
-    if(circlecolor[curcircle] != 0 && circlecolor[curcircle] != curcolor)
+    if (circlecolor[curcircle] != 0 && circlecolor[curcircle] != curcolor)
     {
         success = false;
         return;
     }
-    if(visited[curcircle])
+    if (visited[curcircle])
     {
         return;
     }
     visited[curcircle] = true;
     int nextcolor;
-    if(curcolor == 1)
+    if (curcolor == 1)
     {
         nextcolor = 2;
     }
-    else if(curcolor == 2)
+    else if (curcolor == 2)
     {
         nextcolor = 1;
     }
-    for(int i = 0; i < circlecon[curcircle].size(); i++)
+    for (int i = 0; i < circlecon[curcircle].size(); i++)
     {
         dfs(circlecon[curcircle][i], nextcolor);
     }
@@ -46,36 +46,33 @@ int main()
     //freopen("test.txt", "rt", stdin);
     int t;
     cin >> t;
-    while(t--)
+    while (t--)
     {
-        int n,m;
+        int n, m;
         cin >> n >> m;
-        circlecon.resize(n + 1,vector<int>());
-        fill(circlecon.begin(),circlecon.end(),vector<int>());
-        circlecolor.resize(n + 1,0);
-        fill(circlecolor.begin(),circlecolor.end(),0);
-        visited.resize(n + 1,false);
-        fill(visited.begin(),visited.end(),false);
+        circlecon.resize(n + 1, vector<int>());
+        fill(circlecon.begin(), circlecon.end(), vector<int>());
+        circlecolor.resize(n + 1, 0);
+        fill(circlecolor.begin(), circlecolor.end(), 0);
+        visited.resize(n + 1, false);
+        fill(visited.begin(), visited.end(), false);
         success = true;
-        while(m--)
+        while (m--)
         {
-            int fir,sec;
+            int fir, sec;
             cin >> fir >> sec;
             circlecon[fir].push_back(sec);
             circlecon[sec].push_back(fir);
         }
-        for(int i = 1; i <= n; i++)
+        for (int i = 1; i <= n; i++)
         {
-            if(circlecolor[i] != 0)
+            if (visited[i])
             {
-                dfs(i,circlecolor[i]);
+                continue;
             }
-            else
-            {
-                dfs(i,1);
-            }
+            dfs(i, 1);
         }
-        if(success)
+        if (success)
         {
             cout << "possible\n";
         }
