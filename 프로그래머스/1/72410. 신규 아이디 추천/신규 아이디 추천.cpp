@@ -1,57 +1,57 @@
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 string solution(string new_id) {
-    string answer = "";
+    string temp = "";
     for(int i = 0; i < new_id.length(); i++)
     {
-        if(isalpha(new_id[i]))
+        new_id[i] = tolower(new_id[i]); // 1단계
+    }
+    for(int i = 0; i < new_id.length(); i++)
+    {
+        if(isalnum(new_id[i]) || new_id[i] == '-' || new_id[i] == '_' || new_id[i] == '.')
         {
-            answer += tolower(new_id[i]);
-        }
-        else if(new_id[i] == '-' || new_id[i] == '_' || isdigit(new_id[i]))
-        {
-            answer += new_id[i];
-        }
-        else if(new_id[i] == '.' && new_id[i + 1] != '.')
-        {
-            if(i != new_id.length() - 1 && answer.back() != '.')
-            {
-                answer += '.';
-            }
+            temp += new_id[i]; // 2단계
         }
     }
-    if(answer[0] == '.')
+    new_id = temp;
+    temp = "";
+    for(int i = 0; i < new_id.length(); i++)
     {
-        answer = answer.substr(1);
-    }
-    if(answer.back() == '.')
-    {
-        answer.pop_back();
-    }
-    if(answer.empty())
-    {
-        answer += 'a';
-    }
-    if(answer.length() > 15)
-    {
-        answer = answer.substr(0,15);
+        temp += new_id[i];
+        while(new_id[i] == '.' && new_id[i + 1] == '.')
         {
-            if(answer.back() == '.')
-            {
-                answer.pop_back();
-            }
+            i++; // 3단계
         }
     }
-    if(answer.length() < 3)
+    new_id = temp;
+    if(new_id.front() == '.')
     {
-        while(answer.length() < 3)
+        new_id.erase(0,1);
+    }
+    if(new_id.back() == '.')
+    {
+        new_id.pop_back();
+    } // 4단계
+    if(new_id.empty())
+    {
+        new_id += 'a';
+    } // 5단계
+    if(new_id.length() >= 16)
+    {
+        new_id.erase(new_id.begin() + 15,new_id.end());
+        if(new_id.back() == '.')
         {
-            answer += answer.back();
+            new_id.pop_back();
+        }
+    } // 6단계
+    if(new_id.length() <= 2)
+    {
+        while(new_id.length() < 3)
+        {
+            new_id += new_id.back();
         }
     }
-    
-    return answer;
+    return new_id;
 }
