@@ -7,16 +7,14 @@ int s;
 
 void func(int curval, int curidx)
 {
-    if(curidx == arr.size())
+    for(int i = curidx; i < arr.size(); i++)
     {
-        if(curval == s)
+        if(curval + arr[i] == s)
         {
             ans++;
         }
-        return;
+        func(curval + arr[i], i + 1);
     }
-    func(curval,curidx + 1);
-    func(curval + arr[curidx],curidx + 1);
 }
 
 int main()
@@ -32,10 +30,6 @@ int main()
         cin >> arr[i];
     }
     func(0,0);
-    if(s == 0)
-    {
-        ans--; // 구하는 수가 0일 때는 아무것도 선택하지 않는 경우의 수(공집합)가 포함되므로 ans--
-    }
     cout << ans;
     return 0;
 }
