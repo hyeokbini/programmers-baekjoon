@@ -1,52 +1,50 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
-void drawStars(vector<vector<char>> &arr, int xstart, int xend, int ystart, int yend)
+int n;
+vector<vector<char>> arr;
+
+void func(int curlength, int curxstart, int curystart)
 {
-    if (xend - xstart == 1 || yend - ystart == 1)
+    // 기저 조건(curlength가 1)
+    if (curlength == 1)
     {
-        for (int i = xstart; i < xend; i++)
-        {
-            for (int j = ystart; j < yend; j++)
-            {
-                arr[i][j] = '*';
-            }
-        }
+        // 현재 칸을 별로 색칠
+        arr[curxstart][curystart] = '*';
+        return;
     }
-    else
+
+    // 현재 길이를 3등분해서 기준으로 삼을 값
+    int newlength = curlength / 3;
+    for (int i = 0; i < 3; i++)
     {
-        int width = (xend - xstart) / 3;
-        int height = (yend - ystart) / 3;
-        for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
         {
-            for (int j = 0; j < 3; j++)
+            // 중간 부분은 별을 찍지 않음
+            if (i == 1 && j == 1)
             {
-                if (i != 1 || j != 1)
-                {
-                    drawStars(arr, xstart + i * width, xstart + (i + 1) * width, ystart + j * height, ystart + (j + 1) * height);
-                }
+                continue;
             }
+            func(newlength, curxstart + newlength * i, curystart + newlength * j);
         }
     }
 }
 
 int main()
 {
-    int n;
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    //freopen("test.txt", "rt", stdin);
     cin >> n;
-
-    vector<vector<char>> arr(n, vector<char>(n, ' '));
-    drawStars(arr, 0, n, 0, n);
-
-    for (int i = 0; i < n; i++)
+    arr.resize(n, vector<char>(n,' '));
+    func(n, 0, 0); // 인자는 현재 사각형 길이, 좌상단 시작점 좌표
+    for(int i = 0; i < n; i++)
     {
-        for (int j = 0; j < n; j++)
+        for(int j = 0; j < n; j++)
         {
             cout << arr[i][j];
         }
         cout << "\n";
     }
-
     return 0;
 }
