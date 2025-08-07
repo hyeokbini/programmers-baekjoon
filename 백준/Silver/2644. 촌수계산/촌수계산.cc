@@ -3,7 +3,7 @@ using namespace std;
 
 int ans = -1;
 int firval, secval;
-void dfs(vector<vector<int>> arr, vector<bool> visited,int curval, int depth)
+void dfs(vector<vector<int>> &arr, vector<bool> &visited,int curval, int depth)
 {
     if(visited[curval])
     {
